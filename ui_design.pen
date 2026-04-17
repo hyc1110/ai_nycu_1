@@ -1,0 +1,1513 @@
+{
+  "version": "2.11",
+  "children": [
+    {
+      "type": "frame",
+      "id": "DojZ0",
+      "x": 0,
+      "y": 700,
+      "name": "Join Screen - Desktop",
+      "width": 1440,
+      "height": 900,
+      "fill": "$surface-inverse",
+      "layout": "vertical",
+      "justifyContent": "center",
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "frame",
+          "id": "5QaMg",
+          "name": "card",
+          "width": 400,
+          "fill": "$surface-card",
+          "layout": "vertical",
+          "gap": 28,
+          "padding": [
+            48,
+            40
+          ],
+          "children": [
+            {
+              "type": "text",
+              "id": "Vvtlc",
+              "name": "title",
+              "fill": "$foreground-primary",
+              "content": "Anonymous Chat",
+              "fontFamily": "Funnel Sans",
+              "fontSize": 36,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "IZsZH",
+              "name": "subtitle",
+              "fill": "$foreground-secondary",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Enter a callsign to join the conversation",
+              "fontFamily": "Inter",
+              "fontSize": 16,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "2STLY",
+              "name": "inputSection",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 8,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "elXDY",
+                  "name": "inputField",
+                  "width": "fill_container",
+                  "fill": "$surface-card",
+                  "stroke": {
+                    "align": "inside",
+                    "thickness": 1,
+                    "fill": "$border-subtle"
+                  },
+                  "padding": [
+                    14,
+                    16
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "Tdgjm",
+                      "name": "placeholder",
+                      "fill": "$foreground-muted",
+                      "content": "Enter your callsign...",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "Sx8gB",
+                  "name": "helper",
+                  "fill": "$foreground-secondary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Letters, numbers, and underscores only. Max 20 characters.",
+                  "fontFamily": "Geist",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "tsbtI",
+              "name": "btnFrame",
+              "width": "fill_container",
+              "fill": "$accent-primary",
+              "padding": [
+                14,
+                0
+              ],
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "hvc0D",
+                  "name": "btnText",
+                  "fill": "$foreground-inverse",
+                  "content": "Join Chat",
+                  "fontFamily": "Inter",
+                  "fontSize": 16,
+                  "fontWeight": "600"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "QkCMM",
+              "name": "errorText",
+              "fill": "$error",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Invalid callsign. Please try again.",
+              "fontFamily": "Geist",
+              "fontSize": 12,
+              "fontWeight": "normal"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "D1ZHv",
+      "x": 1560,
+      "y": 700,
+      "name": "Join Screen - Mobile",
+      "width": 390,
+      "height": 844,
+      "fill": "$surface-inverse",
+      "layout": "vertical",
+      "padding": [
+        0,
+        20
+      ],
+      "justifyContent": "center",
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "frame",
+          "id": "agae9",
+          "name": "mCard",
+          "width": "fill_container",
+          "fill": "$surface-card",
+          "layout": "vertical",
+          "gap": 24,
+          "padding": [
+            40,
+            24
+          ],
+          "children": [
+            {
+              "type": "text",
+              "id": "pdzIG",
+              "name": "mTitle",
+              "fill": "$foreground-primary",
+              "content": "Anonymous Chat",
+              "fontFamily": "Funnel Sans",
+              "fontSize": 28,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "edJ4o",
+              "name": "mSubtitle",
+              "fill": "$foreground-secondary",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Enter a callsign to join the conversation",
+              "fontFamily": "Inter",
+              "fontSize": 14,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "uO1ab",
+              "name": "mInputSection",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 8,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "lcOAM",
+                  "name": "mInputField",
+                  "width": "fill_container",
+                  "fill": "$surface-card",
+                  "stroke": {
+                    "align": "inside",
+                    "thickness": 1,
+                    "fill": "$border-subtle"
+                  },
+                  "padding": [
+                    14,
+                    16
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "GtSdD",
+                      "name": "mPlaceholder",
+                      "fill": "$foreground-muted",
+                      "content": "Enter your callsign...",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "pM03M",
+                  "name": "mHelper",
+                  "fill": "$foreground-secondary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Letters, numbers, and underscores only. Max 20 characters.",
+                  "fontFamily": "Geist",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "oGjTJ",
+              "name": "mBtnFrame",
+              "width": "fill_container",
+              "fill": "$accent-primary",
+              "padding": [
+                16,
+                0
+              ],
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "rSMLu",
+                  "name": "mBtnText",
+                  "fill": "$foreground-inverse",
+                  "content": "Join Chat",
+                  "fontFamily": "Inter",
+                  "fontSize": 16,
+                  "fontWeight": "600"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "tb5m2",
+              "name": "mErrorText",
+              "fill": "$error",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Invalid callsign. Please try again.",
+              "fontFamily": "Geist",
+              "fontSize": 12,
+              "fontWeight": "normal"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "XMCmA",
+      "x": 0,
+      "y": 1720,
+      "name": "Chat Screen - Desktop",
+      "clip": true,
+      "width": 1440,
+      "height": 900,
+      "fill": "$surface-primary",
+      "layout": "vertical",
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "frame",
+          "id": "29qtl",
+          "name": "Top Bar",
+          "width": "fill_container",
+          "height": 56,
+          "fill": "$surface-inverse",
+          "padding": [
+            0,
+            40
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "9muaw",
+              "name": "App Title",
+              "fill": "$foreground-inverse",
+              "content": "Anonymous Chat",
+              "fontFamily": "Funnel Sans",
+              "fontSize": 18,
+              "fontWeight": "700"
+            },
+            {
+              "type": "frame",
+              "id": "elaq8",
+              "name": "Status Area",
+              "gap": 8,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "ellipse",
+                  "id": "S3KC4",
+                  "name": "Status Dot",
+                  "fill": "$success",
+                  "width": 8,
+                  "height": 8
+                },
+                {
+                  "type": "text",
+                  "id": "0JhSx",
+                  "name": "Status Text",
+                  "fill": "$success",
+                  "content": "Connected",
+                  "fontFamily": "Geist",
+                  "fontSize": 12,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "8KMvO",
+              "name": "Callsign",
+              "fill": "$foreground-muted",
+              "content": "CoolDog",
+              "fontFamily": "Geist Mono",
+              "fontSize": 13,
+              "fontWeight": "500"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "2JL2a",
+          "name": "Chat Body",
+          "width": 800,
+          "height": "fill_container",
+          "layout": "vertical",
+          "children": [
+            {
+              "type": "frame",
+              "id": "vwHuA",
+              "name": "Message List",
+              "width": "fill_container",
+              "height": "fill_container",
+              "layout": "vertical",
+              "gap": 4,
+              "padding": 24,
+              "justifyContent": "end",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "U0IE3",
+                  "name": "System Message",
+                  "width": "fill_container",
+                  "gap": 8,
+                  "padding": [
+                    8,
+                    12
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "NzNSo",
+                      "name": "msg1Icon",
+                      "fill": "$system-msg",
+                      "content": "→",
+                      "fontFamily": "Geist Mono",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "t3aVG",
+                      "name": "msg1Text",
+                      "fill": "$system-msg",
+                      "content": "Ghost42 joined the chat",
+                      "fontFamily": "Geist",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "4TPaC",
+                      "name": "msg1Time",
+                      "fill": "$foreground-muted",
+                      "content": "14:32",
+                      "fontFamily": "Geist Mono",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "yc9vj",
+                  "name": "Other Message 1",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 4,
+                  "padding": [
+                    8,
+                    12
+                  ],
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "6ifdj",
+                      "name": "Msg Header",
+                      "gap": 8,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "4ACqo",
+                          "name": "otherMsg1Name",
+                          "fill": "$accent-primary",
+                          "content": "Ghost42",
+                          "fontFamily": "Geist Mono",
+                          "fontSize": 13,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "0tods",
+                          "name": "otherMsg1Time",
+                          "fill": "$foreground-muted",
+                          "content": "14:32",
+                          "fontFamily": "Geist Mono",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "XbAQx",
+                      "name": "otherMsg1Body",
+                      "fill": "$foreground-primary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Hey everyone! Anyone working on the WebSocket assignment?",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "tM2I0",
+                  "name": "Other Message 2",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 4,
+                  "padding": [
+                    8,
+                    12
+                  ],
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "vEyv1",
+                      "name": "Msg Header",
+                      "gap": 8,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "pKo9r",
+                          "name": "otherMsg2Name",
+                          "fill": "$accent-primary",
+                          "content": "NightOwl",
+                          "fontFamily": "Geist Mono",
+                          "fontSize": 13,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "PjTOh",
+                          "name": "otherMsg2Time",
+                          "fill": "$foreground-muted",
+                          "content": "14:33",
+                          "fontFamily": "Geist Mono",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "KpiMI",
+                      "name": "otherMsg2Body",
+                      "fill": "$foreground-primary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Yeah, just got the Lambda functions deployed. The connect handler was straightforward.",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "1oHMz",
+                  "name": "Own Message 1",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 4,
+                  "padding": [
+                    8,
+                    12
+                  ],
+                  "alignItems": "end",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "IDkX4",
+                      "name": "Msg Header",
+                      "gap": 8,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "758xY",
+                          "name": "ownMsg1Time",
+                          "fill": "$foreground-muted",
+                          "content": "14:34",
+                          "fontFamily": "Geist Mono",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "mTFto",
+                          "name": "ownMsg1Name",
+                          "fill": "$accent-primary",
+                          "content": "CoolDog (you)",
+                          "fontFamily": "Geist Mono",
+                          "fontSize": 13,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "ebQEr",
+                      "name": "Bubble",
+                      "fill": "$accent-primary",
+                      "padding": [
+                        10,
+                        16
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "1SmUk",
+                          "name": "ownMsg1Body",
+                          "fill": "$foreground-inverse",
+                          "textGrowth": "fixed-width",
+                          "width": 480,
+                          "content": "Nice! I'm still working on the DynamoDB table. How did you handle the connection ID storage?",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "0neBa",
+                  "name": "Other Message 3",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 4,
+                  "padding": [
+                    8,
+                    12
+                  ],
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "bEmbG",
+                      "name": "Msg Header",
+                      "gap": 8,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "ljerx",
+                          "name": "otherMsg3Name",
+                          "fill": "$accent-primary",
+                          "content": "NightOwl",
+                          "fontFamily": "Geist Mono",
+                          "fontSize": 13,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "SLeLJ",
+                          "name": "otherMsg3Time",
+                          "fill": "$foreground-muted",
+                          "content": "14:35",
+                          "fontFamily": "Geist Mono",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "E5g4b",
+                      "name": "otherMsg3Body",
+                      "fill": "$foreground-primary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Just a simple partition key on connectionId. The scan for broadcast is fine at our scale.",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "KSNqo",
+                  "name": "System Message Leave",
+                  "width": "fill_container",
+                  "gap": 8,
+                  "padding": [
+                    8,
+                    12
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "LpUEj",
+                      "name": "sysMsg2Icon",
+                      "fill": "$foreground-muted",
+                      "content": "←",
+                      "fontFamily": "Geist Mono",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "Lyice",
+                      "name": "sysMsg2Text",
+                      "fill": "$foreground-muted",
+                      "content": "Alpha_99 left the chat",
+                      "fontFamily": "Geist",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "lsQ3F",
+                      "name": "sysMsg2Time",
+                      "fill": "$foreground-muted",
+                      "content": "14:36",
+                      "fontFamily": "Geist Mono",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "TpDs0",
+                  "name": "Own Message 2",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 4,
+                  "padding": [
+                    8,
+                    12
+                  ],
+                  "alignItems": "end",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "Cpbr3",
+                      "name": "Msg Header",
+                      "gap": 8,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "CR2iQ",
+                          "name": "ownMsg2Time",
+                          "fill": "$foreground-muted",
+                          "content": "14:37",
+                          "fontFamily": "Geist Mono",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "qu3aK",
+                          "name": "ownMsg2Name",
+                          "fill": "$accent-primary",
+                          "content": "CoolDog (you)",
+                          "fontFamily": "Geist Mono",
+                          "fontSize": 13,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "h1MKO",
+                      "name": "Bubble",
+                      "fill": "$accent-primary",
+                      "padding": [
+                        10,
+                        16
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "sZ5DK",
+                          "name": "ownMsg2Body",
+                          "fill": "$foreground-inverse",
+                          "content": "Makes sense. Thanks for the tip!",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "rectangle",
+              "id": "BFqIs",
+              "name": "Divider",
+              "fill": "$border-subtle",
+              "width": "fill_container",
+              "height": 1
+            },
+            {
+              "type": "frame",
+              "id": "LoT9z",
+              "name": "Input Area",
+              "width": "fill_container",
+              "gap": 12,
+              "padding": [
+                16,
+                24
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "c0gsE",
+                  "name": "Input Field",
+                  "width": "fill_container",
+                  "height": 44,
+                  "fill": "$surface-card",
+                  "stroke": {
+                    "align": "inside",
+                    "thickness": 1,
+                    "fill": "$border-subtle"
+                  },
+                  "padding": [
+                    0,
+                    16
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "Kw7iz",
+                      "name": "inputPlaceholder",
+                      "fill": "$foreground-muted",
+                      "content": "Type a message...",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "3o5VB",
+                  "name": "Send Button",
+                  "height": 44,
+                  "fill": "$accent-primary",
+                  "padding": [
+                    0,
+                    24
+                  ],
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "2GH25",
+                      "name": "sendBtnText",
+                      "fill": "$foreground-inverse",
+                      "content": "Send",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "600"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "39Vd0",
+      "x": 1560,
+      "y": 1720,
+      "name": "Chat Screen - Mobile",
+      "clip": true,
+      "width": 390,
+      "height": 844,
+      "fill": "$surface-primary",
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "Smhyw",
+          "name": "Status Bar",
+          "width": "fill_container",
+          "height": 54,
+          "fill": "$surface-inverse",
+          "padding": [
+            0,
+            20
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "2KDeK",
+              "name": "mTime",
+              "fill": "$foreground-inverse",
+              "content": "9:41",
+              "fontFamily": "Inter",
+              "fontSize": 15,
+              "fontWeight": "600"
+            },
+            {
+              "type": "frame",
+              "id": "U5a8u",
+              "name": "mStatusRight",
+              "gap": 6,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "XZwVq",
+                  "name": "mSignal",
+                  "fill": "$foreground-inverse",
+                  "content": "●●●●",
+                  "fontFamily": "Inter",
+                  "fontSize": 8,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "TDQRt",
+                  "name": "mBattery",
+                  "fill": "$foreground-inverse",
+                  "content": "100%",
+                  "fontFamily": "Geist Mono",
+                  "fontSize": 11,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "qFsOE",
+          "name": "Top Bar",
+          "width": "fill_container",
+          "height": 48,
+          "fill": "$surface-inverse",
+          "padding": [
+            0,
+            16
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "pOGfY",
+              "name": "mAppTitle",
+              "fill": "$foreground-inverse",
+              "content": "Anonymous Chat",
+              "fontFamily": "Funnel Sans",
+              "fontSize": 16,
+              "fontWeight": "700"
+            },
+            {
+              "type": "frame",
+              "id": "Texz9",
+              "name": "mStatusArea",
+              "gap": 6,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "ellipse",
+                  "id": "CNbII",
+                  "name": "mDot",
+                  "fill": "$success",
+                  "width": 6,
+                  "height": 6
+                },
+                {
+                  "type": "text",
+                  "id": "57NOf",
+                  "name": "mStatusTxt",
+                  "fill": "$foreground-muted",
+                  "content": "CoolDog",
+                  "fontFamily": "Geist Mono",
+                  "fontSize": 11,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "1jtwG",
+          "name": "Message List",
+          "width": "fill_container",
+          "height": "fill_container",
+          "layout": "vertical",
+          "gap": 2,
+          "padding": [
+            16,
+            12
+          ],
+          "justifyContent": "end",
+          "children": [
+            {
+              "type": "frame",
+              "id": "AlIXP",
+              "name": "System Join",
+              "width": "fill_container",
+              "gap": 6,
+              "padding": [
+                6,
+                8
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "aPjnf",
+                  "name": "mSys1Icon",
+                  "fill": "$system-msg",
+                  "content": "→",
+                  "fontFamily": "Geist Mono",
+                  "fontSize": 11,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "6tOi8",
+                  "name": "mSys1Text",
+                  "fill": "$system-msg",
+                  "content": "Ghost42 joined",
+                  "fontFamily": "Geist",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "hnHQ6",
+                  "name": "mSys1Time",
+                  "fill": "$foreground-muted",
+                  "content": "14:32",
+                  "fontFamily": "Geist Mono",
+                  "fontSize": 10,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "mM54Q",
+              "name": "Other Msg 1",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 3,
+              "padding": [
+                6,
+                8
+              ],
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "1ec6c",
+                  "name": "mOther1Head",
+                  "gap": 6,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "X0qfE",
+                      "name": "mOther1Name",
+                      "fill": "$accent-primary",
+                      "content": "Ghost42",
+                      "fontFamily": "Geist Mono",
+                      "fontSize": 12,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "TOTKQ",
+                      "name": "mOther1Time",
+                      "fill": "$foreground-muted",
+                      "content": "14:32",
+                      "fontFamily": "Geist Mono",
+                      "fontSize": 10,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "kvcRO",
+                  "name": "mOther1Body",
+                  "fill": "$foreground-primary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Hey everyone! Anyone working on the WebSocket assignment?",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "o8aIa",
+              "name": "Other Msg 2",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 3,
+              "padding": [
+                6,
+                8
+              ],
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "dA1Vs",
+                  "name": "mOther2Head",
+                  "gap": 6,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "UGcko",
+                      "name": "mOther2Name",
+                      "fill": "$accent-primary",
+                      "content": "NightOwl",
+                      "fontFamily": "Geist Mono",
+                      "fontSize": 12,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "Yzqc9",
+                      "name": "mOther2Time",
+                      "fill": "$foreground-muted",
+                      "content": "14:33",
+                      "fontFamily": "Geist Mono",
+                      "fontSize": 10,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "1Jd4D",
+                  "name": "mOther2Body",
+                  "fill": "$foreground-primary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Yeah, just got the Lambda functions deployed. The connect handler was straightforward.",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "VSG9P",
+              "name": "Own Msg 1",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 3,
+              "padding": [
+                6,
+                8
+              ],
+              "alignItems": "end",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "fiyeG",
+                  "name": "mOwn1Head",
+                  "gap": 6,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "TL2wE",
+                      "name": "mOwn1Time",
+                      "fill": "$foreground-muted",
+                      "content": "14:34",
+                      "fontFamily": "Geist Mono",
+                      "fontSize": 10,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "1dOhM",
+                      "name": "mOwn1Name",
+                      "fill": "$accent-primary",
+                      "content": "You",
+                      "fontFamily": "Geist Mono",
+                      "fontSize": 12,
+                      "fontWeight": "600"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "USw2G",
+                  "name": "mOwn1Bubble",
+                  "fill": "$accent-primary",
+                  "padding": [
+                    8,
+                    14
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "unF8B",
+                      "name": "mOwn1Body",
+                      "fill": "$foreground-inverse",
+                      "textGrowth": "fixed-width",
+                      "width": 260,
+                      "content": "Nice! How did you handle the connection ID storage?",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "GN2Wl",
+              "name": "Other Msg 3",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 3,
+              "padding": [
+                6,
+                8
+              ],
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "7htbX",
+                  "name": "mOther3Head",
+                  "gap": 6,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "P12rQ",
+                      "name": "mOther3Name",
+                      "fill": "$accent-primary",
+                      "content": "NightOwl",
+                      "fontFamily": "Geist Mono",
+                      "fontSize": 12,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "utJPp",
+                      "name": "mOther3Time",
+                      "fill": "$foreground-muted",
+                      "content": "14:35",
+                      "fontFamily": "Geist Mono",
+                      "fontSize": 10,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "A4B0E",
+                  "name": "mOther3Body",
+                  "fill": "$foreground-primary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Simple partition key on connectionId. The scan for broadcast is fine at our scale.",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "cycIZ",
+              "name": "System Leave",
+              "width": "fill_container",
+              "gap": 6,
+              "padding": [
+                6,
+                8
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "R8LvQ",
+                  "name": "mSysLeaveIcon",
+                  "fill": "$foreground-muted",
+                  "content": "←",
+                  "fontFamily": "Geist Mono",
+                  "fontSize": 11,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "LqeDp",
+                  "name": "mSysLeaveText",
+                  "fill": "$foreground-muted",
+                  "content": "Alpha_99 left",
+                  "fontFamily": "Geist",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "HhSqZ",
+                  "name": "mSysLeaveTime",
+                  "fill": "$foreground-muted",
+                  "content": "14:36",
+                  "fontFamily": "Geist Mono",
+                  "fontSize": 10,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "PciNY",
+              "name": "Own Msg 2",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 3,
+              "padding": [
+                6,
+                8
+              ],
+              "alignItems": "end",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "UTto9",
+                  "name": "mOwn2Head",
+                  "gap": 6,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "bA9dd",
+                      "name": "mOwn2Time",
+                      "fill": "$foreground-muted",
+                      "content": "14:37",
+                      "fontFamily": "Geist Mono",
+                      "fontSize": 10,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "oHbu2",
+                      "name": "mOwn2Name",
+                      "fill": "$accent-primary",
+                      "content": "You",
+                      "fontFamily": "Geist Mono",
+                      "fontSize": 12,
+                      "fontWeight": "600"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "OpGUR",
+                  "name": "mOwn2Bubble",
+                  "fill": "$accent-primary",
+                  "padding": [
+                    8,
+                    14
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "MfUX4",
+                      "name": "mOwn2Body",
+                      "fill": "$foreground-inverse",
+                      "content": "Makes sense. Thanks!",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "rectangle",
+          "id": "AGUpp",
+          "name": "Divider",
+          "fill": "$border-subtle",
+          "width": "fill_container",
+          "height": 1
+        },
+        {
+          "type": "frame",
+          "id": "0Vkhu",
+          "name": "Input Area",
+          "width": "fill_container",
+          "gap": 8,
+          "padding": [
+            12,
+            12,
+            24,
+            12
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "TbwVl",
+              "name": "Input Field",
+              "width": "fill_container",
+              "height": 44,
+              "fill": "$surface-card",
+              "stroke": {
+                "align": "inside",
+                "thickness": 1,
+                "fill": "$border-subtle"
+              },
+              "padding": [
+                0,
+                14
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "Qp0le",
+                  "name": "mInputPlaceholder",
+                  "fill": "$foreground-muted",
+                  "content": "Type a message...",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "phb7E",
+              "name": "Send Button",
+              "width": 44,
+              "height": 44,
+              "fill": "$accent-primary",
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "9x0Lk",
+                  "name": "mSendIcon",
+                  "fill": "$foreground-inverse",
+                  "content": "↑",
+                  "fontFamily": "Inter",
+                  "fontSize": 20,
+                  "fontWeight": "700"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variables": {
+    "accent-light": {
+      "type": "color",
+      "value": "#A8724F"
+    },
+    "accent-primary": {
+      "type": "color",
+      "value": "#8F5A3C"
+    },
+    "border-primary": {
+      "type": "color",
+      "value": "#1A1A1A"
+    },
+    "border-subtle": {
+      "type": "color",
+      "value": "#D0D1D3"
+    },
+    "error": {
+      "type": "color",
+      "value": "#C0392B"
+    },
+    "foreground-inverse": {
+      "type": "color",
+      "value": "#FFFFFF"
+    },
+    "foreground-muted": {
+      "type": "color",
+      "value": "#999999"
+    },
+    "foreground-primary": {
+      "type": "color",
+      "value": "#1A1A1A"
+    },
+    "foreground-secondary": {
+      "type": "color",
+      "value": "#666666"
+    },
+    "success": {
+      "type": "color",
+      "value": "#3D7A4A"
+    },
+    "surface-card": {
+      "type": "color",
+      "value": "#FFFFFF"
+    },
+    "surface-inverse": {
+      "type": "color",
+      "value": "#1A1A1A"
+    },
+    "surface-primary": {
+      "type": "color",
+      "value": "#E8E9EB"
+    },
+    "system-msg": {
+      "type": "color",
+      "value": "#8F5A3C"
+    }
+  }
+}
