@@ -2,47 +2,50 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Anonymous Chat</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:wght@400;600;700&family=Inter:wght@400;500;600&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-  <!-- Join Screen -->
-  <div id="join-screen" class="screen active">
+
+  <!-- ── Join Screen ── -->
+  <div id="screen-join" class="screen is-active">
     <div class="join-card">
       <h1 class="join-title">Anonymous Chat</h1>
       <p class="join-subtitle">Enter a callsign to join the conversation</p>
-      <div class="input-section">
+
+      <div class="field-group">
         <input
-          type="text"
           id="callsign-input"
           class="text-input"
-          placeholder="Enter your callsign..."
+          type="text"
+          placeholder="Enter your callsign…"
           maxlength="20"
           aria-label="Callsign"
           autocomplete="off"
           autocapitalize="none"
           spellcheck="false"
         />
-        <p class="helper-text">Letters, numbers, and underscores only. Max 20 characters.</p>
+        <p class="field-hint">Letters, numbers, and underscores only. Max 20 characters.</p>
+        <p id="join-error" class="field-error" aria-live="polite"></p>
       </div>
+
       <button id="join-btn" class="btn-primary" type="button">Join Chat</button>
-      <p id="join-error" class="error-text" aria-live="polite"></p>
     </div>
   </div>
 
-  <!-- Chat Screen -->
-  <div id="chat-screen" class="screen" hidden>
+  <!-- ── Chat Screen ── -->
+  <div id="screen-chat" class="screen" hidden>
     <header class="top-bar">
-      <span class="app-title">Anonymous Chat</span>
-      <div class="status-area" aria-live="polite" aria-atomic="true">
-        <span class="status-dot" id="status-dot" data-status="connecting"></span>
-        <span class="status-text" id="status-text">Connecting</span>
+      <span class="top-bar__title">Anonymous Chat</span>
+      <div class="top-bar__status" aria-live="polite" aria-atomic="true">
+        <span class="status-dot" id="status-dot" data-status="connected"></span>
+        <span class="status-label" id="status-label">Connected</span>
       </div>
-      <span class="callsign-display" id="callsign-display"></span>
+      <span class="top-bar__callsign" id="my-callsign"></span>
     </header>
 
     <div class="chat-body">
@@ -53,31 +56,25 @@
         aria-label="Chat messages"
         aria-live="polite"
       ></div>
-      <div class="divider" role="separator"></div>
-      <div class="input-area">
+
+      <div class="input-bar">
         <input
+          id="msg-input"
+          class="text-input msg-input"
           type="text"
-          id="message-input"
-          class="text-input message-text-input"
-          placeholder="Type a message..."
+          placeholder="Type a message…"
           maxlength="1000"
-          aria-label="Type a message"
+          aria-label="Message"
           autocomplete="off"
-          disabled
         />
-        <button id="send-btn" class="send-btn" type="button" aria-label="Send message" disabled>
-          <span class="send-label">Send</span>
-          <span class="send-icon" aria-hidden="true">&#8593;</span>
+        <button id="send-btn" class="send-btn" type="button" aria-label="Send message">
+          <span class="send-btn__text">Send</span>
+          <span class="send-btn__icon" aria-hidden="true">&#8593;</span>
         </button>
       </div>
     </div>
-
-    <div id="reconnect-banner" class="reconnect-banner" hidden aria-live="assertive">
-      Connection lost.
-      <button id="manual-reconnect-btn" class="link-btn" type="button">Reconnect</button>
-    </div>
   </div>
 
-  <script src="app.js"></script>
+  <script src="./app.js"></script>
 </body>
 </html>

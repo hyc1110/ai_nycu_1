@@ -1,52 +1,93 @@
 'use strict';
 
-// Set your WebSocket endpoint here, or override via the query string ?endpoint=wss://...
-const WS_ENDPOINT =
-  new URLSearchParams(location.search).get('endpoint') ||
-  'wss://default.execute-api.us-west-2.amazonaws.com/prod';
+/* ═══════════════════════════════════════════════════════════
+   MOCK API
+   Replace these three functions with real WebSocket / fetch
+   calls when the backend is ready.
+═══════════════════════════════════════════════════════════ */
 
-const CALLSIGN_RE = /^[a-zA-Z0-9_]{1,20}$/;
-// Reconnect delays in ms: 2s, 4s, 8s, 16s, 30s (capped)
-const RECONNECT_DELAYS = [2000, 4000, 8000, 16000, 30000];
-const JOIN_TIMEOUT_MS = 8000;
+function _delay(ms) {
+  return new Promise(r => setTimeout(r, ms));
+}
 
-// ===== State =====
-const state = {
-  callsign: '',
-  ws: null,
-  intentionalClose: false,
-  reconnectAttempts: 0,
-  reconnectTimer: null,
-  inChat: false,
-};
+const _BOT_NAMES  = ['Ghost42', 'NightOwl', 'Alpha_99'];
+const _BOT_REPLIES = [
+  'Makes sense!',
+  'Good point — I ran into the same thing.',
+  'Interesting approach. How did you handle edge cases?',
+  'Yeah that worked for me too.',
+  'Thanks for the tip!',
+  'Have you checked the docs for that?',
+  'I ended up doing something similar.',
+];
 
-// ===== DOM =====
-const $ = (id) => document.getElementById(id);
+/** Returns a pre-seeded history of messages (simulates fetching chat log). */
+async function fetchMessages() {
+  await _delay(350);
+  const now = Date.now();
+  return [
+    { type: 'system',  event: 'user_joined', callsign: 'Ghost42',  timestamp: new Date(now - 600_000).toISOString() },
+    { type: 'message', callsign: 'Ghost42',  text: 'Hey everyone! Anyone working on the WebSocket assignment?',                   timestamp: new Date(now - 580_000).toISOString() },
+    { type: 'message', callsign: 'NightOwl', text: 'Yeah, just got the Lambda functions deployed. The connect handler was easy.', timestamp: new Date(now - 540_000).toISOString() },
+    { type: 'message', callsign: 'Ghost42',  text: 'Nice! I\'m still working on the DynamoDB table. How did you store connection IDs?', timestamp: new Date(now - 480_000).toISOString() },
+    { type: 'message', callsign: 'NightOwl', text: 'Simple partition key on connectionId. The scan for broadcast is fine at our scale.', timestamp: new Date(now - 420_000).toISOString() },
+    { type: 'system',  event: 'user_left',   callsign: 'Alpha_99', timestamp: new Date(now - 180_000).toISOString() },
+  ];
+}
 
-const joinScreen        = $('join-screen');
-const chatScreen        = $('chat-screen');
-const callsignInput     = $('callsign-input');
-const joinBtn           = $('join-btn');
-const joinError         = $('join-error');
-const messageList       = $('message-list');
-const messageInput      = $('message-input');
-const sendBtn           = $('send-btn');
-const statusDot         = $('status-dot');
-const statusText        = $('status-text');
-const callsignDisplay   = $('callsign-display');
-const reconnectBanner   = $('reconnect-banner');
-const manualReconnectBtn = $('manual-reconnect-btn');
-
-// ===== Helpers =====
-
-function formatTime(iso) {
-  try {
-    const d = iso ? new Date(iso) : new Date();
-    return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
-  } catch {
-    return '';
+/**
+ * Simulates sending a message.
+ * Calls onIncoming with a random bot reply ~40% of the time.
+ * @param {string} callsign
+ * @param {string} text
+ * @param {function} onIncoming  - called with an incoming ServerMessage when a bot replies
+ */
+async function sendMessage(callsign, text, onIncoming) {
+  await _delay(60);
+  if (Math.random() < 0.4) {
+    const bot   = _BOT_NAMES[Math.floor(Math.random() * _BOT_NAMES.length)];
+    const reply = _BOT_REPLIES[Math.floor(Math.random() * _BOT_REPLIES.length)];
+    setTimeout(() => {
+      onIncoming({ type: 'message', callsign: bot, text: reply, timestamp: new Date().toISOString() });
+    }, 900 + Math.random() * 1400);
   }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   Validation
+═══════════════════════════════════════════════════════════ */
+
+const CALLSIGN_RE = /^[a-zA-Z0-9_]{1,20}$/;
+
+/* ═══════════════════════════════════════════════════════════
+   State
+═══════════════════════════════════════════════════════════ */
+
+const state = {
+  callsign: '',
+};
+
+/* ═══════════════════════════════════════════════════════════
+   DOM refs
+═══════════════════════════════════════════════════════════ */
+
+const $ = id => document.getElementById(id);
+
+const screenJoin      = $('screen-join');
+const screenChat      = $('screen-chat');
+const callsignInput   = $('callsign-input');
+const joinBtn         = $('join-btn');
+const joinError       = $('join-error');
+const messageList     = $('message-list');
+const msgInput        = $('msg-input');
+const sendBtn         = $('send-btn');
+const statusDot       = $('status-dot');
+const statusLabel     = $('status-label');
+const myCallsignEl    = $('my-callsign');
+
+/* ═══════════════════════════════════════════════════════════
+   Utilities
+═══════════════════════════════════════════════════════════ */
 
 function esc(str) {
   return String(str)
@@ -56,254 +97,145 @@ function esc(str) {
     .replace(/"/g, '&quot;');
 }
 
+function fmtTime(iso) {
+  try {
+    return new Date(iso || Date.now())
+      .toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+  } catch { return ''; }
+}
+
 function scrollToBottom() {
   messageList.scrollTop = messageList.scrollHeight;
 }
 
-// ===== Status indicator =====
+/* ═══════════════════════════════════════════════════════════
+   Render
+═══════════════════════════════════════════════════════════ */
 
-function setStatus(status, label) {
-  const labels = {
-    connecting:   'Connecting\u2026',
-    connected:    'Connected',
-    disconnected: 'Disconnected',
-    reconnecting: 'Reconnecting\u2026',
-  };
-  const text = label || labels[status] || status;
-  statusDot.dataset.status  = status;
-  statusText.dataset.status = status;
-  statusText.textContent    = text;
-}
-
-// ===== Render messages =====
-
+/**
+ * @param {{ type: string, event?: string, callsign?: string, text?: string, timestamp?: string }} data
+ */
 function renderMessage(data) {
   const el = document.createElement('div');
   el.className = 'msg';
 
   if (data.type === 'system') {
     const join = data.event === 'user_joined';
-    const cls  = join ? 'join' : 'leave';
-    const icon = join ? '&#8594;' : '&#8592;';
-    const verb = join ? 'joined the chat' : 'left the chat';
-    const time = formatTime(data.timestamp);
-    el.classList.add('msg-system');
+    el.classList.add('msg--system');
     el.innerHTML =
-      `<span class="msg-sys-icon ${cls}">${icon}</span>` +
-      `<span class="msg-sys-text ${cls}">${esc(data.callsign)} ${verb}</span>` +
-      `<span class="msg-time">${esc(time)}</span>`;
+      `<span class="msg__sys-icon msg__sys-icon--${join ? 'join' : 'leave'}">${join ? '&#8594;' : '&#8592;'}</span>` +
+      `<span class="msg__sys-text msg__sys-text--${join ? 'join' : 'leave'}">${esc(data.callsign)} ${join ? 'joined the chat' : 'left the chat'}</span>` +
+      `<span class="msg__time">${esc(fmtTime(data.timestamp))}</span>`;
 
   } else if (data.type === 'message') {
     const own  = data.callsign === state.callsign;
-    const time = formatTime(data.timestamp);
+    const time = fmtTime(data.timestamp);
     const name = own ? `${esc(data.callsign)} (you)` : esc(data.callsign);
 
     if (own) {
-      el.classList.add('msg-own');
+      el.classList.add('msg--own');
       el.innerHTML =
-        `<div class="msg-header">` +
-          `<span class="msg-header-time">${esc(time)}</span>` +
-          `<span class="msg-name">${name}</span>` +
+        `<div class="msg__header">` +
+          `<span class="msg__header-time">${esc(time)}</span>` +
+          `<span class="msg__name">${name}</span>` +
         `</div>` +
-        `<div class="msg-bubble"><p class="msg-body">${esc(data.text)}</p></div>`;
+        `<div class="msg__bubble"><p class="msg__body">${esc(data.text)}</p></div>`;
     } else {
-      el.classList.add('msg-other');
+      el.classList.add('msg--other');
       el.innerHTML =
-        `<div class="msg-header">` +
-          `<span class="msg-name">${name}</span>` +
-          `<span class="msg-header-time">${esc(time)}</span>` +
+        `<div class="msg__header">` +
+          `<span class="msg__name">${name}</span>` +
+          `<span class="msg__header-time">${esc(time)}</span>` +
         `</div>` +
-        `<p class="msg-body">${esc(data.text)}</p>`;
+        `<p class="msg__body">${esc(data.text)}</p>`;
     }
   } else {
-    return; // unknown type
-  }
-
-  messageList.appendChild(el);
-  scrollToBottom();
-}
-
-function appendNotice(text, type = 'info') {
-  const el = document.createElement('div');
-  el.className = 'msg msg-system';
-  el.innerHTML =
-    `<span class="msg-sys-icon ${type}">&#8635;</span>` +
-    `<span class="msg-sys-text ${type}">${esc(text)}</span>`;
-  messageList.appendChild(el);
-  scrollToBottom();
-}
-
-// ===== WebSocket handlers =====
-
-function attachChatHandlers(ws) {
-  ws.onmessage = (ev) => {
-    try { renderMessage(JSON.parse(ev.data)); } catch { /* ignore */ }
-  };
-
-  ws.onclose = () => {
-    if (state.intentionalClose) return;
-    setStatus('disconnected');
-    messageInput.disabled = true;
-    sendBtn.disabled = true;
-    scheduleReconnect();
-  };
-
-  ws.onerror = () => { /* onclose will fire */ };
-}
-
-function scheduleReconnect() {
-  if (state.reconnectAttempts >= RECONNECT_DELAYS.length) {
-    reconnectBanner.hidden = false;
     return;
   }
-  setStatus('reconnecting');
-  const delay = RECONNECT_DELAYS[state.reconnectAttempts++];
-  state.reconnectTimer = setTimeout(reconnect, delay);
+
+  messageList.appendChild(el);
+  scrollToBottom();
 }
 
-function reconnect() {
-  if (state.ws &&
-      (state.ws.readyState === WebSocket.OPEN ||
-       state.ws.readyState === WebSocket.CONNECTING)) return;
+/* ═══════════════════════════════════════════════════════════
+   Join flow
+═══════════════════════════════════════════════════════════ */
 
-  setStatus('connecting');
-  const ws = new WebSocket(`${WS_ENDPOINT}?callsign=${encodeURIComponent(state.callsign)}`);
-  state.ws = ws;
-  state.intentionalClose = false;
-
-  ws.onopen = () => {
-    setStatus('connected');
-    state.reconnectAttempts = 0;
-    reconnectBanner.hidden = true;
-    messageInput.disabled = false;
-    sendBtn.disabled = false;
-    appendNotice('Reconnected');
-    attachChatHandlers(ws);
-  };
-
-  ws.onclose = () => {
-    if (state.intentionalClose) return;
-    setStatus('disconnected');
-    scheduleReconnect();
-  };
-
-  ws.onerror = () => {};
-}
-
-// ===== Join flow =====
-
-function tryJoin() {
+async function tryJoin() {
   const callsign = callsignInput.value.trim();
 
   if (!CALLSIGN_RE.test(callsign)) {
     joinError.textContent = callsign.length === 0
       ? 'Please enter a callsign.'
-      : 'Invalid callsign. Use letters, numbers, or underscores (max 20 characters).';
+      : 'Use letters, numbers, or underscores only (max 20 characters).';
     callsignInput.focus();
     return;
   }
 
   joinError.textContent = '';
   joinBtn.disabled = true;
-  joinBtn.textContent = 'Connecting\u2026';
+  joinBtn.textContent = 'Joining\u2026';
   state.callsign = callsign;
 
-  const ws = new WebSocket(`${WS_ENDPOINT}?callsign=${encodeURIComponent(callsign)}`);
-  state.ws = ws;
-  state.intentionalClose = false;
-  let settled = false;
+  // Transition to chat screen
+  screenJoin.classList.remove('is-active');
+  screenJoin.hidden = true;
+  screenChat.hidden = false;
+  screenChat.classList.add('is-active');
 
-  const timeout = setTimeout(() => {
-    if (settled) return;
-    settled = true;
-    state.intentionalClose = true;
-    ws.close();
-    joinBtn.disabled = false;
-    joinBtn.textContent = 'Join Chat';
-    joinError.textContent = 'Connection timed out. Please try again.';
-  }, JOIN_TIMEOUT_MS);
+  myCallsignEl.textContent  = callsign;
+  statusDot.dataset.status  = 'connected';
+  statusLabel.dataset.status = 'connected';
+  statusLabel.textContent   = 'Connected';
 
-  ws.onopen = () => {
-    if (settled) return;
-    settled = true;
-    clearTimeout(timeout);
-    setStatus('connected');
-    state.reconnectAttempts = 0;
-    state.inChat = true;
+  // Render own join notice
+  renderMessage({ type: 'system', event: 'user_joined', callsign, timestamp: new Date().toISOString() });
 
-    // Transition to chat screen
-    joinScreen.classList.remove('active');
-    joinScreen.hidden = true;
-    chatScreen.hidden = false;
-    chatScreen.classList.add('active');
-    callsignDisplay.textContent = callsign;
-    messageInput.disabled = false;
-    sendBtn.disabled = false;
-    messageInput.focus();
+  // Load message history
+  const history = await fetchMessages();
+  history.forEach(renderMessage);
 
-    attachChatHandlers(ws);
-  };
-
-  ws.onclose = () => {
-    if (settled) return;
-    settled = true;
-    clearTimeout(timeout);
-    joinBtn.disabled = false;
-    joinBtn.textContent = 'Join Chat';
-    joinError.textContent = 'Connection failed. Please try again.';
-  };
-
-  ws.onerror = () => {};
-
-  // Also wire up onmessage early so messages arriving right after connect are captured
-  ws.onmessage = (ev) => {
-    try { renderMessage(JSON.parse(ev.data)); } catch { /* ignore */ }
-  };
+  msgInput.focus();
 }
 
-// ===== Send message =====
+/* ═══════════════════════════════════════════════════════════
+   Send message
+═══════════════════════════════════════════════════════════ */
 
-function sendMessage() {
-  const text = messageInput.value.trim();
+async function trySend() {
+  const text = msgInput.value.trim();
   if (!text) return;
-  if (!state.ws || state.ws.readyState !== WebSocket.OPEN) return;
 
-  state.ws.send(JSON.stringify({ action: 'sendMessage', text }));
-  messageInput.value = '';
-  messageInput.focus();
+  msgInput.value = '';
+  msgInput.focus();
+
+  // Render own message immediately
+  renderMessage({ type: 'message', callsign: state.callsign, text, timestamp: new Date().toISOString() });
+
+  // Tell the mock API (passes onIncoming so bot replies can arrive)
+  await sendMessage(state.callsign, text, renderMessage);
 }
 
-// ===== Event listeners =====
+/* ═══════════════════════════════════════════════════════════
+   Event listeners
+═══════════════════════════════════════════════════════════ */
 
 joinBtn.addEventListener('click', tryJoin);
 
-callsignInput.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter') tryJoin();
+callsignInput.addEventListener('keydown', e => { if (e.key === 'Enter') tryJoin(); });
+callsignInput.addEventListener('input',   ()  => { joinError.textContent = ''; });
+
+sendBtn.addEventListener('click', trySend);
+
+msgInput.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); trySend(); }
 });
 
-callsignInput.addEventListener('input', () => {
-  joinError.textContent = '';
-});
+// Keep input visible when soft keyboard opens on mobile
+msgInput.addEventListener('focus', () => setTimeout(scrollToBottom, 300));
 
-sendBtn.addEventListener('click', sendMessage);
+/* ═══════════════════════════════════════════════════════════
+   Init
+═══════════════════════════════════════════════════════════ */
 
-messageInput.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter' && !e.shiftKey) {
-    e.preventDefault();
-    sendMessage();
-  }
-});
-
-manualReconnectBtn.addEventListener('click', () => {
-  reconnectBanner.hidden = true;
-  state.reconnectAttempts = 0;
-  reconnect();
-});
-
-// Scroll to bottom on mobile keyboard open
-messageInput.addEventListener('focus', () => {
-  setTimeout(scrollToBottom, 300);
-});
-
-// ===== Init =====
 callsignInput.focus();
